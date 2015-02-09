@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -47,6 +47,16 @@ class ProductsController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def who_bought
+    @product = Product.find(params[:id])
+    @latest_order = @product.orders.order(:updated_at).latest_order
+    if stale?(@latest_order)
+      respond_to do |format|
+        format.atom
       end
     end
   end

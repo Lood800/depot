@@ -1,0 +1,10 @@
+<h3>Pragmatic Order Received</h3>
+
+<p>
+  This is to notify you that your following order was received.
+</p>
+
+<table>
+	<tr><th colspan="2">Qty</th><th>Description</th></tr>
+<%= render @order.line_items -%>
+</table>
